@@ -33,3 +33,6 @@
 
 /* Original hardware "reset" button on pin D2 */
 #define HARDWARE_RESET_PIN  D2
+
+// extras
+#define ENABLE_COMPILE_KEYCODE
