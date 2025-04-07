@@ -1,3 +1,5 @@
+#define TAPPING_TERM 350
+
 #include QMK_KEYBOARD_H
 #if __has_include("keymap.h")
 #    include "keymap.h"
