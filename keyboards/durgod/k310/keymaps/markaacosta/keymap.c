@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // asdfgh - 17
         MT(MOD_LCTL, KC_ESC), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_NUHS, KC_ENT, KC_P4, KC_P5, KC_P6,
         // zxcvbn - 18
-        KC_LSFT, KC_NUBS, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_P1, KC_P2, KC_P3, KC_PENT,
+        KC_LSFT, KC_NUBS, KC_Z, LT(_xtras_layer, KC_X), KC_C, KC_V, KC_B, KC_N, LT(_media_layer, KC_M), KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_P1, KC_P2, KC_P3, KC_PENT,
         // modifiers, space, etc. - 13
         KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_RALT, MO(1), KC_APP, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_P0, KC_PDOT),
     [_media_layer]  = LAYOUT_all(
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // asdfgh - 17
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         // zxcvbn - 18
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, KC_MEDIA_PLAY_PAUSE, _______, _______, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, _______, _______, _______, _______, _______, _______, _______,
         // _______, _______, etc. - 13
         _______, _______, _______, _______, _______, GU_TOGG, _______, _______, _______, _______, _______, _______, _______),
     [_xtras_layer]  = LAYOUT_all(
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // asdfgh - 17
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         // zxcvbn - 18
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, QK_MAKE, _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         // _______, _______, etc. - 13
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)};
 
