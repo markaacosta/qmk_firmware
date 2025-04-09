@@ -36,14 +36,14 @@ enum custom_keycodes {
 // Tap Dance declarations
 enum {
     TD_ALT_CAPS,
-    TD_SUPER_CAPS,
+    TD_SUPER_NUMPAD_LAYER,
 };
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Escape, twice for Caps Lock
     [TD_ALT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_ALT, KC_CAPS),
-    [TD_SUPER_CAPS] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LGUI, _numpad_layer),
+    [TD_SUPER_NUMPAD_LAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LGUI, _numpad_layer),
 };
 
 // const uint16_t PROGMEM test_combo1[] = {KC_A, KC_B, COMBO_END}; //example
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // zxcvbn - 18
         KC_LSFT, KC_NUBS, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_P1, KC_P2, KC_P3, KC_PENT,
         // modifiers, space, etc. - 13
-        KC_LCTL, TD(TD_SUPER_CAPS), TD(TD_ALT_CAPS), KC_SPC, KC_RALT, MO(_function_layer), KC_APP, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_P0, KC_PDOT),
+        KC_LCTL, TD(TD_SUPER_NUMPAD_LAYER), TD(TD_ALT_CAPS), KC_SPC, KC_RALT, MO(_function_layer), KC_APP, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_P0, KC_PDOT),
     [_function_layer]  = LAYOUT_all(
         // fn keys - 16
         _______, KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, _______, _______, _______, _______, _______,
