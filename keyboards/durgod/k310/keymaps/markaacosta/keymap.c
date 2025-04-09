@@ -49,6 +49,14 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_ALT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_ALT, KC_CAPS),
 };
 
+// const uint16_t PROGMEM test_combo1[] = {KC_A, KC_B, COMBO_END}; //example
+const uint16_t PROGMEM vol_down_combo[] = {TD(TD_ALT_CAPS), KC_LEFT_SHIFT, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM vol_up_combo[] = {TD(TD_ALT_CAPS), KC_LEFT_SHIFT, KC_DOT, COMBO_END};
+combo_t key_combos[] = {
+    // COMBO(vol_down_combo, KC_AUDIO_VOL_DOWN),
+    // COMBO(vol_up_combo, KC_AUDIO_VOL_UP),
+};
+
   /* Keymap _BASE: Base Layer (Default Layer)
    * ┌───┐   ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┐
    * │Esc│   │F1 │F2 │F3 │F4 │ │F5 │F6 │F7 │F8 │ │F9 │F10│F11│F12│ │PSc│Slk│Pse│
