@@ -54,6 +54,42 @@ combo_t key_combos[] = {
     // COMBO(vol_up_combo, KC_AUDIO_VOL_UP),
 };
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CTL_DEL:
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+                tap_code(KC_DEL);
+                unregister_code(KC_LCTL);
+            }
+            return false; // Skip normal processing
+        case BACKSPC_DEL:
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+                tap_code(KC_BACKSPACE);
+                unregister_code(KC_LCTL);
+            }
+            return false; // Skip normal processing
+        case NUM_F1 ... NUM_F10:
+            uint8_t index = 0;
+            static uint16_t num_press_timer[10]; // one timer for each key
+            index = keycode - NUM_F1;
+
+            if (record->event.pressed) {
+                num_press_timer[index] = timer_read();
+            } else {
+                uint16_t elapsed = timer_elapsed(num_press_timer[index]);
+                if (elapsed < TAPPING_TERM) {
+                    tap_code(KC_1 + index); // send number
+                } else {
+                    tap_code(KC_F1 + index); // send F-key
+                }
+            }
+            return false;
+    }
+    return true; // Let QMK handle other keycodes normally
+}
+
   /* Keymap _BASE: Base Layer (Default Layer)
    * ┌───┐   ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┐
    * │Esc│   │F1 │F2 │F3 │F4 │ │F5 │F6 │F7 │F8 │ │F9 │F10│F11│F12│ │PSc│Slk│Pse│
@@ -124,42 +160,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_KP_ENTER, _______, KC_KP_1, KC_KP_2, KC_KP_3, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         // ctrl, super, alt, etc. - 13
         _______, _______, KC_KP_DOT, KC_KP_0, _______, _______, _______, _______, _______, _______, _______, _______, _______)};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case CTL_DEL:
-            if (record->event.pressed) {
-                register_code(KC_LCTL);
-                tap_code(KC_DEL);
-                unregister_code(KC_LCTL);
-            }
-            return false; // Skip normal processing
-        case BACKSPC_DEL:
-            if (record->event.pressed) {
-                register_code(KC_LCTL);
-                tap_code(KC_BACKSPACE);
-                unregister_code(KC_LCTL);
-            }
-            return false; // Skip normal processing
-        case NUM_F1 ... NUM_F10:
-            uint8_t index = 0;
-            static uint16_t num_press_timer[10]; // one timer for each key
-            index = keycode - NUM_F1;
-
-            if (record->event.pressed) {
-                num_press_timer[index] = timer_read();
-            } else {
-                uint16_t elapsed = timer_elapsed(num_press_timer[index]);
-                if (elapsed < TAPPING_TERM) {
-                    tap_code(KC_1 + index); // send number
-                } else {
-                    tap_code(KC_F1 + index); // send F-key
-                }
-            }
-            return false;
-    }
-    return true; // Let QMK handle other keycodes normally
-}
 
 #ifdef OTHER_KEYMAP_C
 #    include OTHER_KEYMAP_C
