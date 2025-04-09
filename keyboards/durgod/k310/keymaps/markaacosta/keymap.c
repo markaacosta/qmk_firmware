@@ -21,6 +21,7 @@ enum layer_names {
     _main_layer,
     _function_layer,
     _extras_layer,
+    _numpad_layer,
 };
 
 enum custom_keycodes {
@@ -41,12 +42,14 @@ enum custom_keycodes {
 // Tap Dance declarations
 enum {
     TD_ALT_CAPS,
+    TD_SUPER_CAPS,
 };
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Escape, twice for Caps Lock
     [TD_ALT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_ALT, KC_CAPS),
+    [TD_SUPER_CAPS] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LGUI, _numpad_layer),
 };
 
 // const uint16_t PROGMEM test_combo1[] = {KC_A, KC_B, COMBO_END}; //example
@@ -87,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // zxcvbn - 18
         KC_LSFT, KC_NUBS, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_P1, KC_P2, KC_P3, KC_PENT,
         // modifiers, space, etc. - 13
-        KC_LCTL, KC_LGUI, TD(TD_ALT_CAPS), KC_SPC, KC_RALT, MO(_function_layer), KC_APP, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_P0, KC_PDOT),
+        KC_LCTL, TD(TD_SUPER_CAPS), TD(TD_ALT_CAPS), KC_SPC, KC_RALT, MO(_function_layer), KC_APP, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_P0, KC_PDOT),
     [_function_layer]  = LAYOUT_all(
         // fn keys - 16
         _______, KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -99,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         // zxcvbn - 18
         _______, _______, KC_MPRV, KC_VOLD, KC_MPLY, KC_VOLU, KC_MNXT, _______, KC_MUTE, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        // _______, _______, etc. - 13
+        // ctrl, super, alt, etc. - 13
         _______, _______, _______, _______, _______, GU_TOGG, _______, _______, _______, _______, _______, _______, _______),
     [_extras_layer]  = LAYOUT_all(
         // fn keys - 16
@@ -112,8 +115,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, KC_DELETE, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______, _______, _______, _______,
         // zxcvbn - 18
         _______, _______, _______, _______, QK_MAKE, _______, QK_BOOT, _______, _______, _______, _______, KC_PAUSE, _______, _______, _______, _______, _______, _______,
-        // _______, _______, etc. - 13
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)};
+        // ctrl, super, alt, etc. - 13
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
+    [_numpad_layer]  = LAYOUT_all(
+        // fn keys - 16
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        // num keys - 21
+        KC_KP_SLASH, KC_KP_ASTERISK, KC_KP_MINUS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        // qwerty - 21
+        KC_KP_PLUS, KC_KP_7, KC_KP_8, KC_KP_9, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,
+        // asdfgh - 17
+        _______, KC_KP_4, KC_KP_5, KC_KP_6, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        // zxcvbn - 18
+        KC_KP_ENTER, _______, KC_KP_1, KC_KP_2, KC_KP_3, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        // ctrl, super, alt, etc. - 13
+        _______, _______, KC_KP_DOT, KC_KP_0, _______, _______, _______, _______, _______, _______, _______, _______, _______)};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
