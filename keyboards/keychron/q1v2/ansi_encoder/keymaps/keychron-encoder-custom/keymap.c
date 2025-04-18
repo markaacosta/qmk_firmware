@@ -29,7 +29,9 @@
 enum layers{
     MAC_BASE,
     MAC_FN,
+    // original name: WIN_BASE
     _main_layer,
+    // original name: WIN_FN
     _function_layer,
     _extras_layer,
     _numpad_layer,
