@@ -27,6 +27,21 @@ enum layers{
     _numpad_layer,
 };
 
+enum custom_keycodes {
+    CTL_DEL = SAFE_RANGE,
+    BACKSPC_DEL,
+    NUM_F1,
+    NUM_F2,
+    NUM_F3,
+    NUM_F4,
+    NUM_F5,
+    NUM_F6,
+    NUM_F7,
+    NUM_F8,
+    NUM_F9,
+    NUM_F10,
+};
+
 // Tap Dance declarations
 enum {
     TD_ALT_CAPS,
@@ -39,6 +54,42 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_ALT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_ALT, KC_CAPS),
     [TD_SUPER_NUMPAD_LAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LCMD, _numpad_layer),
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CTL_DEL:
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+                tap_code(KC_DEL);
+                unregister_code(KC_LCTL);
+            }
+            return false; // Skip normal processing
+        case BACKSPC_DEL:
+            if (record->event.pressed) {
+                register_code(KC_LCTL);
+                tap_code(KC_BACKSPACE);
+                unregister_code(KC_LCTL);
+            }
+            return false; // Skip normal processing
+        case NUM_F1 ... NUM_F10:
+            uint8_t index = 0;
+            static uint16_t num_press_timer[10]; // one timer for each key
+            index = keycode - NUM_F1;
+
+            if (record->event.pressed) {
+                num_press_timer[index] = timer_read();
+            } else {
+                uint16_t elapsed = timer_elapsed(num_press_timer[index]);
+                if (elapsed < TAPPING_TERM) {
+                    tap_code(KC_1 + index); // send number
+                } else {
+                    tap_code(KC_F1 + index); // send F-key
+                }
+            }
+            return false;
+    }
+    return true; // Let QMK handle other keycodes normally
+}
 
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
@@ -77,10 +128,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______),
     [_extras_layer] = LAYOUT_ansi_82(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,
-        _______,            _______,  _______,  _______,  _______,  QK_BOOT,  _______,  _______,  _______,  _______,  _______,              _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_HOME,    KC_END,  BACKSPC_DEL,            _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_UP,  _______,  KC_PRINT_SCREEN,  KC_PGUP,    KC_PGDN,  CTL_DEL,            _______,
+        _______,  _______,  _______,  KC_DELETE,  _______,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  _______,  _______,              _______,            _______,
+        _______,            _______,  _______,  QK_MAKE,  _______,  QK_BOOT,  _______,  _______,  _______,  _______,  KC_PAUSE,              _______,  _______,
         _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______),
     [_numpad_layer] = LAYOUT_ansi_82(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,
