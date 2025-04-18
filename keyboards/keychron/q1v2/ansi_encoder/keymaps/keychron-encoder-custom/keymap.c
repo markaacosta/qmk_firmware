@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_main_layer] = LAYOUT_ansi_82(
         // 1. esc, 2. f1, 3. f2, 4. f3, 5. f4, 6. f5, 7. f6, 8. f7, 9. f8, 10. f9, 11. f10, 12. f11, 13. f12, 14. del, 15. encoder
-        KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,     KC_F12,   KC_DEL,             KC_MUTE,
+        KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,     KC_F12,   KC_INS,             KC_MUTE,
         // 1. grave, 2. 1, 3. 2, 4. 3, 5. 4, 6. 5, 7. 6, 8. 7, 9. 8, 10. 9, 11. 0, 12. -, 13. =, 14. backspace, 15. pageup
         KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,    KC_EQL,   KC_BSPC,            KC_PGUP,
         // 1. tab, 2. q, 3. w, 4. e, 5. r, 6. t, 7. y, 8. u, 9. i, 10. o, 11. p, 12. [, 13. ], 14. back-slash, 15. pagedown
