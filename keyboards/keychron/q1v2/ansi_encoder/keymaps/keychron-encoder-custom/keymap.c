@@ -20,6 +20,12 @@
 
 // clang-format off
 
+// Each layer gets a name for readability.
+// The underscores don't mean anything - you can
+// have a layer called STUFF or any other name.
+// Layer names don't all need to be of the same
+// length, and you can also skip them entirely
+// and just use numbers.
 enum layers{
     MAC_BASE,
     MAC_FN,
@@ -55,6 +61,14 @@ tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Escape, twice for Caps Lock
     [TD_ALT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_ALT, KC_CAPS),
     [TD_SUPER_NUMPAD_LAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LCMD, _numpad_layer),
+};
+
+// const uint16_t PROGMEM test_combo1[] = {KC_A, KC_B, COMBO_END}; //example
+const uint16_t PROGMEM vol_down_combo[] = {TD(TD_ALT_CAPS), KC_LEFT_SHIFT, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM vol_up_combo[] = {TD(TD_ALT_CAPS), KC_LEFT_SHIFT, KC_DOT, COMBO_END};
+combo_t key_combos[] = {
+    // COMBO(vol_down_combo, KC_AUDIO_VOL_DOWN),
+    // COMBO(vol_up_combo, KC_AUDIO_VOL_UP),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
