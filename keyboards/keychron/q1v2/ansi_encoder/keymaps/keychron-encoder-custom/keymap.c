@@ -182,7 +182,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 1. caps-lock, 2. a, 3. s, 4. d, 5. f, 6. g, 7. h, 8. j, 9. k, 10. l, 11. semicolon, 12. quote, 13. enter, 14. home
         LT(_extras_layer, KC_ESC),  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,              KC_ENT,             KC_HOME,
         // 1. left-shift, 2. z, 3. x, 4. c, 5. v, 6. b, 7. n, 8. m, 9. comma, 10. period, 11. forward-slash, 12. right-shift, 13. up
-        KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,              KC_RSFT,  KC_UP,
+        SC_LSPO,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,              SC_RSPC,  KC_UP,
         // 1. left-control, 2. super, 3. left-alt, 4. SPACE, 5. right-alt, 6. function, 7. right-control, 8. left, 9. down, 10. right
         KC_LCTL,  KC_LCMD,  TD(TD_ALT_CAPS),                                KC_SPC,                                 KC_RALT,  MO(_function_layer), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
 
