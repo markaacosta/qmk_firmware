@@ -92,12 +92,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // uprintf("Current layer: %d\n", layer);
 
     if (record->event.key.row == ENCODER_MOD_ROW && record->event.key.col == ENCODER_MOD_COL) {
-        uprintf("KC_A detected: %s\n", record->event.pressed ? "pressed" : "released");
-        if (record->event.pressed) {
-            encoder_mod_held = true;
-        } else {
-            encoder_mod_held = false;
-        }
+        uprintf("ENCODER_MOD detected: %s\n", record->event.pressed ? "pressed" : "released");
+        encoder_mod_held = record->event.pressed;
+
         return true;
     }
     switch (keycode) {
@@ -138,30 +135,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     // get active layer
     uint8_t layer = get_highest_layer(layer_state);
-    uprintf("Current layer: %d\n", layer);
+    // uprintf("Layer while encoding moved: %d\n", layer);
 
     if (layer == _escape_layer) {
         if (encoder_mod_held) {
-            if (clockwise) {
-                tap_code(KC_MS_UP);
-            } else {
-                tap_code(KC_MS_DOWN);
-            }
+            tap_code(clockwise ? KC_MS_UP : KC_MS_DOWN);
         } else {
-            if (clockwise) {
-                tap_code(KC_MS_RIGHT);
-            } else {
-                tap_code(KC_MS_LEFT);
-            }
+            tap_code(clockwise ? KC_MS_RIGHT : KC_MS_LEFT);
         }
     }
     // the default layer is 0, so encoder presses are actually recognized at 0 (mac), not 3 (linux)
     else if (layer <= _main_layer) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
+        tap_code(clockwise ? KC_VOLU : KC_VOLD);
     }
     return false;
 }
