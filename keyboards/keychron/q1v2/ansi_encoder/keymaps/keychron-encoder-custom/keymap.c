@@ -14,6 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// for debugging / print statements / etc.
+#include "print.h"
+
 #define TAPPING_TERM 200
 
 #include QMK_KEYBOARD_H
