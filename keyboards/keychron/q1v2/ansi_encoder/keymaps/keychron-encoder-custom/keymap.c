@@ -64,12 +64,12 @@ enum {
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for Escape, twice for Caps Lock
+    // taps: 1 -> alt key, 2 -> caps lock
     [TD_ALT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_ALT, KC_CAPS),
+    // taps: 1 -> super key, 2 -> numpad layer
     [TD_SUPER_NUMPAD_LAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LCMD, _numpad_layer),
 };
 
-// const uint16_t PROGMEM test_combo1[] = {KC_A, KC_B, COMBO_END}; //example
 const uint16_t PROGMEM vol_down_combo[] = {TD(TD_ALT_CAPS), KC_LEFT_SHIFT, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM vol_up_combo[] = {TD(TD_ALT_CAPS), KC_LEFT_SHIFT, KC_DOT, COMBO_END};
 combo_t key_combos[] = {
@@ -77,9 +77,10 @@ combo_t key_combos[] = {
     // COMBO(vol_up_combo, KC_AUDIO_VOL_UP),
 };
 
-// the 'encoder mod' (a modifier for extra behavior when it is held with encoder movement
-// note - for this to work in sophisticated cases, we have to set it as with 'row and 'col' data
-// right now, it is `KC_A` - the 'a' key. should you change it in the future, update the defined values below as well
+// the 'encoder mod' (a modifier for extra behavior when this modifier is held down with encoder movement)
+// note - for this to work in sophisticated cases, we have to set it with explicit 'row' and 'col' matrix positions
+// right now, it is set to correspond to `KC_A` - the 'a' key. should you wish to change it in the future, you
+// must update the explicit row and column below
 
 static bool encoder_mod_held = false;
 
@@ -104,14 +105,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_DEL);
                 unregister_code(KC_LCTL);
             }
-            return false; // Skip normal processing
+            return false;
         case BACKSPC_DEL:
             if (record->event.pressed) {
                 register_code(KC_LCTL);
                 tap_code(KC_BACKSPACE);
                 unregister_code(KC_LCTL);
             }
-            return false; // Skip normal processing
+            return false;
         case NUM_F1 ... NUM_F10:
             uint8_t index = 0;
             static uint16_t num_press_timer[10]; // one timer for each key
