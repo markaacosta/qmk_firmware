@@ -190,7 +190,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [MAC_FN]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU)},
     [_main_layer] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [_function_layer]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU)},
-    [_extras_layer]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU)},
+    [_extras_layer]   = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN)},
     [_numpad_layer]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU)}
 };
 #endif // ENCODER_MAP_ENABLE
