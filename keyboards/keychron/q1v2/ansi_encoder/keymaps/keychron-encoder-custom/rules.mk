@@ -1,4 +1,5 @@
-ENCODER_MAP_ENABLE = yes
+# disable this - we are using "encoder_update_user" instead, for more fine-grained control
+# ENCODER_MAP_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 MOUSEKEY_ENABLE = yes

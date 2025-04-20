@@ -77,7 +77,29 @@ combo_t key_combos[] = {
     // COMBO(vol_up_combo, KC_AUDIO_VOL_UP),
 };
 
+// the 'encoder mod' (a modifier for extra behavior when it is held with encoder movement
+// note - for this to work in sophisticated cases, we have to set it as with 'row and 'col' data
+// right now, it is `KC_A` - the 'a' key. should you change it in the future, update the defined values below as well
+
+static bool encoder_mod_held = false;
+
+#define ENCODER_MOD_ROW 3
+#define ENCODER_MOD_COL 1
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // // for debugging purposes, if / when needed...
+    // uint8_t layer = get_highest_layer(layer_state);
+    // uprintf("Current layer: %d\n", layer);
+
+    if (record->event.key.row == ENCODER_MOD_ROW && record->event.key.col == ENCODER_MOD_COL) {
+        uprintf("KC_A detected: %s\n", record->event.pressed ? "pressed" : "released");
+        if (record->event.pressed) {
+            encoder_mod_held = true;
+        } else {
+            encoder_mod_held = false;
+        }
+        return true;
+    }
     switch (keycode) {
         case CTL_DEL:
             if (record->event.pressed) {
@@ -111,6 +133,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
     return true; // Let QMK handle other keycodes normally
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    // get active layer
+    uint8_t layer = get_highest_layer(layer_state);
+    uprintf("Current layer: %d\n", layer);
+
+    if (layer == _escape_layer) {
+        if (encoder_mod_held) {
+            if (clockwise) {
+                tap_code(KC_MS_UP);
+            } else {
+                tap_code(KC_MS_DOWN);
+            }
+        } else {
+            if (clockwise) {
+                tap_code(KC_MS_RIGHT);
+            } else {
+                tap_code(KC_MS_LEFT);
+            }
+        }
+    }
+    // the default layer is 0, so encoder presses are actually recognized at 0 (mac), not 3 (linux)
+    else if (layer <= _main_layer) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
+    return false;
 }
 
 #define KC_TASK LGUI(KC_TAB)
@@ -201,13 +254,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  KC_KP_DOT,                                KC_KP_0,                                _______,  _______,    _______,  _______,  _______,  _______)
 };
 
-#if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [MAC_FN]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU)},
-    [_main_layer] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [_function_layer]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU)},
-    [_extras_layer]   = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN)},
-    [_numpad_layer]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU)}
-};
-#endif // ENCODER_MAP_ENABLE
+// #if defined(ENCODER_MAP_ENABLE)
+// const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+//     [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+//     [MAC_FN]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU)},
+//     [_main_layer] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+//     [_function_layer]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU)},
+//     [_extras_layer]   = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN)},
+//     [_escape_layer]   = { ENCODER_CCW_CW(MS_LEFT, MS_RGHT)},
+//     [_numpad_layer]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU)}
+// };
+// #endif // ENCODER_MAP_ENABLE
