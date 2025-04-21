@@ -60,7 +60,41 @@ enum custom_keycodes {
 enum {
     TD_ALT_CAPS,
     TD_SUPER_NUMPAD_LAYER,
+    TD_SHIFT_HOME,
+    TD_SHIFT_END,
 };
+
+// Tap Dance functions
+
+void td_fn_shift_home(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        // SEND_STRING("Safety dance!");
+        // reset_tap_dance(state);
+        tap_code(KC_HOME);
+    }
+    else if (state->count == 2) {
+        // SEND_STRING("Safety dance!");
+        // reset_tap_dance(state);
+        register_code(KC_LSFT);
+        tap_code(KC_HOME);
+        unregister_code(KC_LSFT);
+    }
+}
+
+void td_fn_shift_end(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        // SEND_STRING("Safety dance!");
+        // reset_tap_dance(state);
+        tap_code(KC_END);
+    }
+    else if (state->count == 2) {
+        // SEND_STRING("Safety dance!");
+        // reset_tap_dance(state);
+        register_code(KC_LSFT);
+        tap_code(KC_END);
+        unregister_code(KC_LSFT);
+    }
+}
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
@@ -68,6 +102,10 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_ALT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_ALT, KC_CAPS),
     // taps: 1 -> super key, 2 -> numpad layer
     [TD_SUPER_NUMPAD_LAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LCMD, _numpad_layer),
+    // taps: 1 -> press "home", 2 -> press "shift + home"
+    [TD_SHIFT_HOME] = ACTION_TAP_DANCE_FN(td_fn_shift_home),
+    // taps: 1 -> press "end", 2 -> press "shift + end"
+    [TD_SHIFT_END] = ACTION_TAP_DANCE_FN(td_fn_shift_end),
 };
 
 const uint16_t PROGMEM vol_down_combo[] = {TD(TD_ALT_CAPS), KC_LEFT_SHIFT, KC_COMMA, COMBO_END};
@@ -203,7 +241,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 1. esc, 2. f1, 3. f2, 4. f3, 5. f4, 6. f5, 7. f6, 8. f7, 9. f8, 10. f9, 11. f10, 12. f11, 13. f12, 14. del, 15. encoder
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,
         // 1. grave, 2. 1, 3. 2, 4. 3, 5. 4, 6. 5, 7. 6, 8. 7, 9. 8, 10. 9, 11. 0, 12. -, 13. =, 14. backspace, 15. pageup
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_HOME,    KC_END,  BACKSPC_DEL,            _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  TD(TD_SHIFT_HOME),    TD(TD_SHIFT_END),  BACKSPC_DEL,            _______,
         // 1. tab, 2. q, 3. w, 4. e, 5. r, 6. t, 7. y, 8. u, 9. i, 10. o, 11. p, 12. [, 13. ], 14. back-slash, 15. pagedown
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_UP,  _______,  KC_PRINT_SCREEN,  KC_PGUP,    KC_PGDN,  CTL_DEL,            _______,
         // 1. caps-lock, 2. a, 3. s, 4. d, 5. f, 6. g, 7. h, 8. j, 9. k, 10. l, 11. semicolon, 12. quote, 13. enter, 14. home
