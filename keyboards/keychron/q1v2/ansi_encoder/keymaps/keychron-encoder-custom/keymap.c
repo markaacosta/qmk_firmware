@@ -99,7 +99,7 @@ void td_fn_shift_end(tap_dance_state_t *state, void *user_data) {
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     // taps: 1 -> alt key, 2 -> caps lock
-    [TD_ALT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_ALT, KC_CAPS),
+    [TD_ALT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_CAPS),
     // taps: 1 -> super key, 2 -> numpad layer
     [TD_SUPER_NUMPAD_LAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LCMD, _numpad_layer),
     // taps: 1 -> press "home", 2 -> press "shift + home"
@@ -222,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 1. left-shift, 2. z, 3. x, 4. c, 5. v, 6. b, 7. n, 8. m, 9. comma, 10. period, 11. forward-slash, 12. right-shift, 13. up
         KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,              KC_RSFT,  KC_UP,
         // 1. left-control, 2. super, 3. left-alt, 4. SPACE, 5. right-alt, 6. function, 7. right-control, 8. left, 9. down, 10. right
-        KC_LCTL,  KC_LCMD,  TD(TD_ALT_CAPS),                                KC_SPC,                                 KC_RALT,  MO(_function_layer), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
+        KC_LCTL,  KC_LCMD,  KC_LALT,                                KC_SPC,                                 TD(TD_ALT_CAPS),  MO(_function_layer), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [_function_layer] = LAYOUT_ansi_82(
         // 1. esc, 2. f1, 3. f2, 4. f3, 5. f4, 6. f5, 7. f6, 8. f7, 9. f8, 10. f9, 11. f10, 12. f11, 13. f12, 14. del, 15. encoder
