@@ -24,3 +24,6 @@
 
 /* enable 'both shifts' method for 'caps word' feature */
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
+/* make tapping feel more natural */
+#define HOLD_ON_OTHER_KEY_PRESS
