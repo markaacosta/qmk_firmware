@@ -30,7 +30,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_main_layer]  = LAYOUT_all(
         // fn keys - 16
-        KC_ESC, LT(_mouse_layer, KC_F1), KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_PSCR, KC_SCRL, KC_PAUS,
+        KC_CAPS, LT(_mouse_layer, KC_F1), KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_PSCR, KC_SCRL, KC_PAUS,
         // num keys - 21
         KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC, KC_INS, KC_HOME, KC_PGUP, KC_NUM, KC_PSLS, KC_PAST, KC_PMNS,
         // qwerty - 21
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // zxcvbn - 18
         KC_LSFT, KC_NUBS, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_P1, KC_P2, KC_P3, KC_PENT,
         // modifiers, space, etc. - 13
-        KC_LCTL, TD(TD_SUPER_NUMPAD_LAYER), TD(TD_ALT_CAPS), KC_SPC, KC_RALT, MO(_function_layer), KC_APP, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_P0, KC_PDOT),
+        KC_LCTL, KC_LCMD, KC_RALT, KC_SPC, KC_RALT, MO(_function_layer), KC_APP, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_P0, KC_PDOT),
     [_function_layer]  = LAYOUT_all(
         // fn keys - 16
         _______, KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -58,11 +58,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // fn keys - 16
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         // num keys - 21
-        _______, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_HOME, KC_END, BACKSPC_DEL, _______, _______, _______, _______, _______, _______, _______,
+        _______, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, TD(TD_SHIFT_HOME), TD(TD_SHIFT_END), BACKSPC_DEL, _______, _______, _______, _______, _______, _______, _______,
         // qwerty - 21
-        _______, _______, _______, _______, _______, _______, _______, _______, KC_UP, _______, KC_PRINT_SCREEN, KC_PGUP, KC_PGDN, CTL_DEL, _______, _______, _______, _______, _______, _______,  _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, KC_INS, _______, KC_PRINT_SCREEN, KC_PGUP, KC_PGDN, CTL_DEL, _______, _______, _______, _______, _______, _______,  _______,
         // asdfgh - 17
-        _______, _______, _______, KC_DELETE, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, KC_INSERT, _______, _______, _______, _______, _______,
+        _______, _______, _______, KC_DELETE, _______, _______, KC_LEFT,  KC_DOWN,  KC_UP,  KC_RGHT, _______, KC_INSERT, _______, _______, _______, _______, _______,
         // zxcvbn - 18
         _______, _______, _______, _______, QK_MAKE, _______, QK_BOOT, _______, _______, _______, _______, KC_PAUSE, _______, _______, _______, _______, _______, _______,
         // ctrl, super, alt, etc. - 13
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // num keys - 21
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         // qwerty - 21
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, MS_BTN1, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,
         // asdfgh - 17
         _______, XXXXXXX, _______, _______, _______, _______, MS_LEFT,  MS_DOWN,  MS_UP,  MS_RGHT, _______, _______, _______, _______, _______, _______, _______,
         // zxcvbn - 18
