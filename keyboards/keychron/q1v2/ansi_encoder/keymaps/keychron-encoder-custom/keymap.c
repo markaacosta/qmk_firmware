@@ -37,7 +37,7 @@ enum layers{
     // original name: WIN_FN
     _function_layer,
     _extras_layer,
-    _escape_layer,
+    _mouse_layer,
     _numpad_layer,
 };
 
@@ -176,7 +176,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     uint8_t layer = get_highest_layer(layer_state);
     // uprintf("Layer while encoding moved: %d\n", layer);
 
-    if (layer == _escape_layer) {
+    if (layer == _mouse_layer) {
         if (encoder_mod_held) {
             tap_code(clockwise ? KC_MS_UP : KC_MS_DOWN);
         } else {
@@ -212,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_main_layer] = LAYOUT_ansi_82(
         // 1. esc, 2. f1, 3. f2, 4. f3, 5. f4, 6. f5, 7. f6, 8. f7, 9. f8, 10. f9, 11. f10, 12. f11, 13. f12, 14. home, 15. encoder
-        MO(_escape_layer),   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,     KC_F12,   KC_HOME,             KC_MPLY,
+        KC_CAPS,   LT(_mouse_layer, KC_F1),    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,     KC_F12,   KC_HOME,             KC_MPLY,
         // 1. grave, 2. 1, 3. 2, 4. 3, 5. 4, 6. 5, 7. 6, 8. 7, 9. 8, 10. 9, 11. 0, 12. -, 13. =, 14. backspace, 15. end
         KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,    KC_EQL,   KC_BSPC,            LT(_numpad_layer, KC_END),
         // 1. tab, 2. q, 3. w, 4. e, 5. r, 6. t, 7. y, 8. u, 9. i, 10. o, 11. p, 12. [, 13. ], 14. back-slash, 15. pageup
@@ -222,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 1. left-shift, 2. z, 3. x, 4. c, 5. v, 6. b, 7. n, 8. m, 9. comma, 10. period, 11. forward-slash, 12. right-shift, 13. up
         KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,              KC_RSFT,  KC_UP,
         // 1. left-control, 2. super, 3. left-alt, 4. SPACE, 5. right-alt, 6. function, 7. right-control, 8. left, 9. down, 10. right
-        KC_LCTL,  KC_LCMD,  KC_LALT,                                KC_SPC,                                 TD(TD_ALT_CAPS),  MO(_function_layer), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
+        KC_LCTL,  KC_LCMD,  KC_LALT,                                KC_SPC,                                 KC_RALT,  MO(_function_layer), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [_function_layer] = LAYOUT_ansi_82(
         // 1. esc, 2. f1, 3. f2, 4. f3, 5. f4, 6. f5, 7. f6, 8. f7, 9. f8, 10. f9, 11. f10, 12. f11, 13. f12, 14. del, 15. encoder
@@ -250,7 +250,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,            _______,  _______,  QK_MAKE,  _______,  QK_BOOT,  _______,  _______,  _______,  _______,  KC_PAUSE,              _______,  _______,
         // 1. left-control, 2. super, 3. left-alt, 4. SPACE, 5. right-alt, 6. function, 7. right-control, 8. left, 9. down, 10. right
         _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______),
-    [_escape_layer] = LAYOUT_ansi_82(
+    [_mouse_layer] = LAYOUT_ansi_82(
         // 1. esc, 2. f1, 3. f2, 4. f3, 5. f4, 6. f5, 7. f6, 8. f7, 9. f8, 10. f9, 11. f10, 12. f11, 13. f12, 14. del, 15. encoder
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            MS_BTN1,
         // 1. grave, 2. 1, 3. 2, 4. 3, 5. 4, 6. 5, 7. 6, 8. 7, 9. 8, 10. 9, 11. 0, 12. -, 13. =, 14. backspace, 15. pageup
@@ -285,7 +285,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     [_main_layer] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
 //     [_function_layer]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU)},
 //     [_extras_layer]   = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN)},
-//     [_escape_layer]   = { ENCODER_CCW_CW(MS_LEFT, MS_RGHT)},
+//     [_mouse_layer]   = { ENCODER_CCW_CW(MS_LEFT, MS_RGHT)},
 //     [_numpad_layer]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU)}
 // };
 // #endif // ENCODER_MAP_ENABLE
