@@ -10,8 +10,9 @@
 // length, and you can also skip them entirely
 // and just use numbers.
 enum my_layers {
-    MAC_BASE,
-    MAC_FN,
+    // if these next two layers enabled, breaks parity and config doesn't work for durgod k310
+    // MAC_BASE,
+    // MAC_FN,
     // original name: WIN_BASE
     _main_layer,
     // original name: WIN_FN
