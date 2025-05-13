@@ -1,94 +1,14 @@
-#define TAPPING_TERM 200
+// include shared USERSPACE configuration
+#include "users/markaacosta/markaacosta.h"
 
 #include QMK_KEYBOARD_H
+
+// IMPORTANT - otherwise, all the visual spacing / clarity of the keymaps will be lost
+// clang-format off
+
 #if __has_include("keymap.h")
 #    include "keymap.h"
 #endif
-
-// Each layer gets a name for readability.
-// The underscores don't mean anything - you can
-// have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same
-// length, and you can also skip them entirely
-// and just use numbers.
-enum layer_names {
-    _main_layer,
-    _function_layer,
-    _extras_layer,
-    _numpad_layer,
-};
-
-enum custom_keycodes {
-    CTL_DEL = SAFE_RANGE,
-    BACKSPC_DEL,
-    NUM_F1,
-    NUM_F2,
-    NUM_F3,
-    NUM_F4,
-    NUM_F5,
-    NUM_F6,
-    NUM_F7,
-    NUM_F8,
-    NUM_F9,
-    NUM_F10,
-};
-
-// Tap Dance declarations
-enum {
-    TD_ALT_CAPS,
-    TD_SUPER_NUMPAD_LAYER,
-};
-
-// Tap Dance definitions
-tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for Escape, twice for Caps Lock
-    [TD_ALT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_ALT, KC_CAPS),
-    [TD_SUPER_NUMPAD_LAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LGUI, _numpad_layer),
-};
-
-// const uint16_t PROGMEM test_combo1[] = {KC_A, KC_B, COMBO_END}; //example
-const uint16_t PROGMEM vol_down_combo[] = {TD(TD_ALT_CAPS), KC_LEFT_SHIFT, KC_COMMA, COMBO_END};
-const uint16_t PROGMEM vol_up_combo[] = {TD(TD_ALT_CAPS), KC_LEFT_SHIFT, KC_DOT, COMBO_END};
-combo_t key_combos[] = {
-    // COMBO(vol_down_combo, KC_AUDIO_VOL_DOWN),
-    // COMBO(vol_up_combo, KC_AUDIO_VOL_UP),
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case CTL_DEL:
-            if (record->event.pressed) {
-                register_code(KC_LCTL);
-                tap_code(KC_DEL);
-                unregister_code(KC_LCTL);
-            }
-            return false; // Skip normal processing
-        case BACKSPC_DEL:
-            if (record->event.pressed) {
-                register_code(KC_LCTL);
-                tap_code(KC_BACKSPACE);
-                unregister_code(KC_LCTL);
-            }
-            return false; // Skip normal processing
-        case NUM_F1 ... NUM_F10:
-            uint8_t index = 0;
-            static uint16_t num_press_timer[10]; // one timer for each key
-            index = keycode - NUM_F1;
-
-            if (record->event.pressed) {
-                num_press_timer[index] = timer_read();
-            } else {
-                uint16_t elapsed = timer_elapsed(num_press_timer[index]);
-                if (elapsed < TAPPING_TERM) {
-                    tap_code(KC_1 + index); // send number
-                } else {
-                    tap_code(KC_F1 + index); // send F-key
-                }
-            }
-            return false;
-    }
-    return true; // Let QMK handle other keycodes normally
-}
 
   /* Keymap _BASE: Base Layer (Default Layer)
    * ┌───┐   ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┐
@@ -110,7 +30,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_main_layer]  = LAYOUT_all(
         // fn keys - 16
-        KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_PSCR, KC_SCRL, KC_PAUS,
+        KC_ESC, LT(_mouse_layer, KC_F1), KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_PSCR, KC_SCRL, KC_PAUS,
         // num keys - 21
         KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC, KC_INS, KC_HOME, KC_PGUP, KC_NUM, KC_PSLS, KC_PAST, KC_PMNS,
         // qwerty - 21
@@ -145,6 +65,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, KC_DELETE, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, KC_INSERT, _______, _______, _______, _______, _______,
         // zxcvbn - 18
         _______, _______, _______, _______, QK_MAKE, _______, QK_BOOT, _______, _______, _______, _______, KC_PAUSE, _______, _______, _______, _______, _______, _______,
+        // ctrl, super, alt, etc. - 13
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
+    [_mouse_layer]  = LAYOUT_all(
+        // fn keys - 16
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        // num keys - 21
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        // qwerty - 21
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,
+        // asdfgh - 17
+        _______, XXXXXXX, _______, _______, _______, _______, MS_LEFT,  MS_DOWN,  MS_UP,  MS_RGHT, _______, _______, _______, _______, _______, _______, _______,
+        // zxcvbn - 18
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         // ctrl, super, alt, etc. - 13
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
     [_numpad_layer]  = LAYOUT_all(
