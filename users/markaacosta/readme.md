@@ -33,7 +33,7 @@ first, assume a relative project directory structure under `/users/<someuser>` l
 
 ### breakdown
 
-> for relevant files
+> note - breakdown compares general userspace files to any *given* keyboard; in this case, the keychron
 
 #### .clangd
 
@@ -68,3 +68,7 @@ shared configuration for functions / actual implementations of shared features
 #### rules.mk
 
 shared configuration for rules common to all your user boards
+
+## caveats / pitfalls / caution
+
+shared userspace is great means maintainable logic, values, and functions, while still having per-keyboard layout config; however, the tradeoff is more awareness of building general solutions in the userspace. As an example, if all boards share userspace, they must share layers as well; to get this to work, it was necessary to "get rid of" the first two (Mac) layers on the keychron, so that both / all boards simply start on main layer. This caused issues originally, since the k310 doesn't have any "sub-modes" before its main layer; without the removal of those bottom two, k310 and this config meant it wasn't possible to type anything at all on the k310, even if it compiled and could be flashed
