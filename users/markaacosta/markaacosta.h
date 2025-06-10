@@ -44,14 +44,22 @@ enum {
     TD_SUPER_NUMPAD_LAYER,
     TD_SHIFT_HOME,
     TD_SHIFT_END,
+    TD_CTRL_SHIFT_UP_ARROW,
+    TD_CTRL_SHIFT_DOWN_ARROW,
+    TD_CTRL_SHIFT_LEFT_ARROW,
+    TD_CTRL_SHIFT_RIGHT_ARROW,
 };
 
-#define NUM_TAP_DANCE_ACTIONS 4
+#define NUM_TAP_DANCE_ACTIONS 8
 
 tap_dance_action_t tap_dance_actions[NUM_TAP_DANCE_ACTIONS];
 
 void td_fn_shift_home(tap_dance_state_t *state, void *user_data);
 void td_fn_shift_end(tap_dance_state_t *state, void *user_data);
+void td_fn_ctrl_shift_up_arrow(tap_dance_state_t *state, void *user_data);
+void td_fn_ctrl_shift_down_arrow(tap_dance_state_t *state, void *user_data);
+void td_fn_ctrl_shift_left_arrow(tap_dance_state_t *state, void *user_data);
+void td_fn_ctrl_shift_right_arrow(tap_dance_state_t *state, void *user_data);
 
 // KEY COMBO
 
