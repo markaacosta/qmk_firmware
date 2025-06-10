@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 1. tab, 2. q, 3. w, 4. e, 5. r, 6. t, 7. y, 8. u, 9. i, 10. o, 11. p, 12. [, 13. ], 14. back-slash, 15. pagedown
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_INS,  _______,  KC_PRINT_SCREEN,  KC_PGUP,    KC_PGDN,  CTL_DEL,            _______,
         // 1. caps-lock, 2. a, 3. s, 4. d, 5. f, 6. g, 7. h, 8. j, 9. k, 10. l, 11. semicolon, 12. quote, 13. enter, 14. home
-        _______,  _______,  _______,  KC_DELETE,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,  KC_RGHT,  _______,  _______,              _______,            _______,
+        _______,  _______,  _______,  KC_DELETE,  _______,  _______,  TD(TD_CTRL_SHIFT_LEFT_ARROW),  TD(TD_CTRL_SHIFT_DOWN_ARROW),  TD(TD_CTRL_SHIFT_UP_ARROW),  TD(TD_CTRL_SHIFT_RIGHT_ARROW),  _______,  _______,              _______,            _______,
         // 1. left-shift, 2. z, 3. x, 4. c, 5. v, 6. b, 7. n, 8. m, 9. comma, 10. period, 11. forward-slash, 12. right-shift, 13. up
         _______,            _______,  _______,  QK_MAKE,  _______,  QK_BOOT,  _______,  _______,  _______,  _______,  KC_PAUSE,              _______,  _______,
         // 1. left-control, 2. super, 3. left-alt, 4. SPACE, 5. right-alt, 6. function, 7. right-control, 8. left, 9. down, 10. right

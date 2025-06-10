@@ -114,6 +114,62 @@ void td_fn_shift_end(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void td_fn_ctrl_shift_left_arrow(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code(KC_LCTL);
+        tap_code(KC_LEFT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 2) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        tap_code(KC_LEFT);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void td_fn_ctrl_shift_right_arrow(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code(KC_LCTL);
+        tap_code(KC_RGHT);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 2) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        tap_code(KC_RGHT);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void td_fn_ctrl_shift_up_arrow(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code(KC_LCTL);
+        tap_code(KC_UP);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 2) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        tap_code(KC_UP);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    }
+}
+
+void td_fn_ctrl_shift_down_arrow(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code(KC_LCTL);
+        tap_code(KC_DOWN);
+        unregister_code(KC_LCTL);
+    } else if (state->count == 2) {
+        register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        tap_code(KC_DOWN);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
+    }
+}
+
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     // taps: 1 -> alt key, 2 -> caps lock
@@ -124,6 +180,14 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_SHIFT_HOME] = ACTION_TAP_DANCE_FN(td_fn_shift_home),
     // taps: 1 -> press "end", 2 -> press "shift + end"
     [TD_SHIFT_END] = ACTION_TAP_DANCE_FN(td_fn_shift_end),
+    // taps: 1 -> press "ctrl + up", 2 -> press "ctrl + shift + up"
+    [TD_CTRL_SHIFT_UP_ARROW] = ACTION_TAP_DANCE_FN(td_fn_ctrl_shift_up_arrow),
+    // taps: 1 -> press "ctrl + down", 2 -> press "ctrl + shift + down"
+    [TD_CTRL_SHIFT_DOWN_ARROW] = ACTION_TAP_DANCE_FN(td_fn_ctrl_shift_down_arrow),
+    // taps: 1 -> press "ctrl + left", 2 -> press "ctrl + shift + left"
+    [TD_CTRL_SHIFT_LEFT_ARROW] = ACTION_TAP_DANCE_FN(td_fn_ctrl_shift_left_arrow),
+    // taps: 1 -> press "ctrl + right", 2 -> press "ctrl + shift + right"
+    [TD_CTRL_SHIFT_RIGHT_ARROW] = ACTION_TAP_DANCE_FN(td_fn_ctrl_shift_right_arrow),
 };
 
 const uint16_t PROGMEM vol_down_combo[] = {TD(TD_ALT_CAPS), KC_LEFT_SHIFT, KC_COMMA, COMBO_END};
