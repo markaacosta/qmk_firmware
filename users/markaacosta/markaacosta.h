@@ -70,4 +70,17 @@ const uint16_t PROGMEM vol_down_combo[NUM_KEY_COMBO_ARGS];
 const uint16_t PROGMEM vol_up_combo[NUM_KEY_COMBO_ARGS];
 combo_t                key_combos[NUM_KEY_COMBOS];
 
+// Volume (Alt + Shift)
+extern const key_override_t vol_up_override;
+extern const key_override_t vol_down_override;
+// Media Next / Prev (Ctrl + Alt)
+extern const key_override_t media_next_override;
+extern const key_override_t media_prev_override;
+// Media Play / Pause (Ctrl + Alt + M)
+extern const key_override_t media_play_override;
+// Mute (Super + M)
+extern const key_override_t media_mute_override;
+// Optional helper macro to avoid repetition:
+#define MARKAACOSTA_KEY_OVERRIDES &vol_up_override, &vol_down_override, &media_next_override, &media_prev_override, &media_play_override, &media_mute_override, NULL
+
 #endif // !USERSPACE

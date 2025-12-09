@@ -196,3 +196,14 @@ combo_t                key_combos[]     = {
     // COMBO(vol_down_combo, KC_AUDIO_VOL_DOWN),
     // COMBO(vol_up_combo, KC_AUDIO_VOL_UP),
 };
+
+// Volume (Alt + Shift)
+const key_override_t vol_up_override   = ko_make_basic(MOD_MASK_ALT | MOD_MASK_SHIFT, KC_DOT, KC_VOLU);
+const key_override_t vol_down_override = ko_make_basic(MOD_MASK_ALT | MOD_MASK_SHIFT, KC_COMM, KC_VOLD);
+// Media Next / Prev (Ctrl + Alt)
+const key_override_t media_next_override = ko_make_basic(MOD_MASK_CTRL | MOD_MASK_ALT, KC_DOT, KC_MNXT);
+const key_override_t media_prev_override = ko_make_basic(MOD_MASK_CTRL | MOD_MASK_ALT, KC_COMM, KC_MPRV);
+// Media Play / Pause (Ctrl + Alt + M)
+const key_override_t media_play_override = ko_make_basic(MOD_MASK_CTRL | MOD_MASK_ALT, KC_M, KC_MPLY);
+// Mute (Super + M)
+const key_override_t media_mute_override = ko_make_basic(MOD_MASK_GUI, KC_M, KC_MUTE);
