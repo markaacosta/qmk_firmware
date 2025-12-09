@@ -16,9 +16,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
     if (layer == _mouse_layer) {
         if (encoder_mod_held) {
-            tap_code(clockwise ? KC_MS_UP : KC_MS_DOWN);
+            tap_code(clockwise ? MS_UP : MS_DOWN);
         } else {
-            tap_code(clockwise ? KC_MS_RIGHT : KC_MS_LEFT);
+            tap_code(clockwise ? MS_RGHT : MS_LEFT);
         }
     }
     // the default layer is 0, so encoder presses are actually recognized at 0 (mac), not 3 (linux)
